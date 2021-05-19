@@ -7,3 +7,14 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
  
 include_once '../config/Database.php';
 include_once '../class/Items.php';
+
+$database = new Database();
+$db = $database->getConnection();
+ 
+$items = new Items($db);
+ 
+$data = json_decode(file_get_contents("php://input"));
+
+if(!empty($data->id) && !empty($data->email) && 
+!empty($data->industry) && !empty($data->country)
+{ 
