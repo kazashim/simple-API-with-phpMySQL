@@ -25,3 +25,23 @@ class Items{
 		return $result;	
 	}
 	
+    function create(){
+		
+		$stmt = $this->conn->prepare("
+			INSERT INTO ".$this->itemsTable."(`email`, `industry`, `country`, `created_date`)
+			VALUES(?,?,?,?)");
+		
+		$this->email = htmlspecialchars(strip_tags($this->email));
+		$this->industry = htmlspecialchars(strip_tags($this->industry));
+		$this->country = htmlspecialchars(strip_tags($this->country));
+	    $this->created_date = htmlspecialchars(strip_tags($this->created_date));
+		
+		
+		$stmt->bind_param("ssss", $this->email, $this->industry, $this->country, $this->created_date);
+		
+		if($stmt->execute()){
+			return true;
+		}
+	 
+		return false;		 
+	}
