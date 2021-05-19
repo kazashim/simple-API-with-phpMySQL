@@ -16,8 +16,21 @@ $items = new Items($db);
 $data = json_decode(file_get_contents("php://input"));
 
 if(!empty($data->email) && !empty($data->industry) && !empty($data->country) && !empty($data->created_date)){    
-    
+
     $items->email = $data->email;
     $items->industry = $data->industry;
     $items->country = $data->country;
     $items->created_date = date('Y-m-d H:i:s');
+
+    if($items->create()){         
+        http_response_code(201);         
+        echo json_encode(array("message" => "Item was created."));
+    } else{         
+        http_response_code(503);        
+        echo json_encode(array("message" => "Unable to create item."));
+    }
+}else{    
+    http_response_code(400);    
+    echo json_encode(array("message" => "Unable to create item. Data is incomplete."));
+}
+?>
