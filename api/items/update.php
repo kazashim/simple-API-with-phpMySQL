@@ -22,3 +22,17 @@ if(!empty($data->id) && !empty($data->email) &&
     $items->industry = $data->industry;
     $items->country = $data->country;
     $items->created_date = date('Y-m-d H:i:s'); 
+
+    if($items->update()){     
+		http_response_code(200);   
+		echo json_encode(array("message" => "Item was updated."));
+	}else{    
+		http_response_code(503);     
+		echo json_encode(array("message" => "Unable to update items."));
+	}
+	
+} else {
+	http_response_code(400);    
+    echo json_encode(array("message" => "Unable to update items. Data is incomplete."));
+}
+?>
