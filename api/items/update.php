@@ -16,5 +16,9 @@ $items = new Items($db);
 $data = json_decode(file_get_contents("php://input"));
 
 if(!empty($data->id) && !empty($data->email) && 
-!empty($data->industry) && !empty($data->country)
-{ 
+!empty($data->industry) && !empty($data->country){ 
+    $items->id = $data->id; 
+	$items->email = $data->email;
+    $items->industry = $data->industry;
+    $items->country = $data->country;
+    $items->created_date = date('Y-m-d H:i:s'); 
