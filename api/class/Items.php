@@ -45,3 +45,25 @@ class Items{
 	 
 		return false;		 
 	}
+
+    function update(){
+	 
+		$stmt = $this->conn->prepare("
+			UPDATE ".$this->itemsTable." 
+			SET email= ?, industry = ?, country = ?, category_id = ?, created_date = ?
+			WHERE id = ?");
+	 
+		$this->id = htmlspecialchars(strip_tags($this->id));
+		$this->email = htmlspecialchars(strip_tags($this->email));
+		$this->industry = htmlspecialchars(strip_tags($this->industry));
+		$this->country = htmlspecialchars(strip_tags($this->country));
+		$this->created = htmlspecialchars(strip_tags($this->created_date));
+	 
+		$stmt->bind_param("ssssi", $this->email, $this->industry, $this->country, $this->created_date, $this->id);
+		
+		if($stmt->execute()){
+			return true;
+		}
+	 
+		return false;
+	}
