@@ -4,6 +4,8 @@
 We will test the Create URL example from our REST API using following URL with ```POSTMAN``` App.
 http://localhost/api/items/create
 
+We will POST the following JSON data values to create a new item record.
+
 ```json
 {
 "email": "demo@demo.com",
